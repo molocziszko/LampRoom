@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Room Creator</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/rooms/new}" th:object="${room}">
+    <label for="name">Room name:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <!--<p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</p> -->
+
+    <br/>
+    <label for="country">Your country:</label>
+    <select id="country" th:field="*{country}">
+        <option th:each="country : ${T(com.molocziszko.lamproom.Country).values()}"
+                th:value="${country}"
+                th:text="${country}">
+        </option>
+    </select>
+
+    <br/>
+    <input type="submit" value="Create room">
+</form>
+
+</body>
+</html>

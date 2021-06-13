@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<body>
+
+<h3 th:text="${room}"></h3>
+
+<hr/>
+<div>The lamp in the room is <span th:text="${room.isLampOn} ? 'TURNING ON' : 'TURNING OFF'"></span></div>
+
+<img id="lampImg" onclick="toSwitch()" src="pic_lampOff.gif" width="100" height="180">
+
+<p>Click the lamp to turn on/off the light.</p>
+
+<script type="text/javascript" th:src="@{/js/toSwitch.js}"></script>
+
+</body>
+</html>

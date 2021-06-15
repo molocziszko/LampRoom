@@ -1,4 +1,4 @@
-package com.molocziszko.lamproom;
+package com.molocziszko.lamproom.model;
 
 public enum Country {
     AFGHANISTAN,

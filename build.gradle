@@ -18,12 +18,16 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	// spring jpa with jdbs connector for postgresql
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// spring jpa with jdbs connector for postgresql
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
 
 	// hibernate-validator
 	implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.1.Final'
+
+	// https://mvnrepository.com/artifact/com.maxmind.geoip2/geoip2
+	implementation group: 'com.maxmind.geoip2', name: 'geoip2', version: '2.3.1'
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

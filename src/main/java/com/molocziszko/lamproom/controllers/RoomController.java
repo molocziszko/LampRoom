@@ -1,10 +1,14 @@
-package com.molocziszko.lamproom;
+package com.molocziszko.lamproom.controllers;
 
+import com.molocziszko.lamproom.model.Room;
+import com.molocziszko.lamproom.service.RequestService;
+import com.molocziszko.lamproom.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -12,13 +16,12 @@ import java.util.List;
 public class RoomController {
 
     private final RoomService service;
+    private final RequestService requestService;
 
     @Autowired
-    public RoomController(RoomService service) {
+    public RoomController(RoomService service, RequestService requestService) {
         this.service = service;
-    }
-
-    public String index() {return "";
+        this.requestService = requestService;
     }
 
     @GetMapping()
@@ -41,7 +44,17 @@ public class RoomController {
     }
 
     @GetMapping("/{id}")
-    public String enterRoom(@PathVariable Long id, Model model) {
+    public String enterRoom(@PathVariable Long id, Model model, HttpServletRequest request) {
+        String clientIP = requestService.getClientIp(request);
+        if (!requestService.isLocalhost(clientIP)) {
+            Room room = service.getRoomById(id);
+            String clientCountry = requestService.checkClientLocation(room, clientIP);
+            if (!clientCountry.equalsIgnoreCase(room.getCountry().toString())) {
+                model.addAttribute("clientCountry", clientCountry);
+                model.addAttribute("roomCountry", room.getCountry());
+                return "badLocation";
+            }
+        }
         model.addAttribute("room", service.getRoomById(id));
         return "room";
     }

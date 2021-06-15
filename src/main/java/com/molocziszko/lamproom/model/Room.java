@@ -1,6 +1,5 @@
-package com.molocziszko.lamproom;
+package com.molocziszko.lamproom.model;
 
-import javax.annotation.Resource;
 import javax.persistence.*;
 
 @Entity

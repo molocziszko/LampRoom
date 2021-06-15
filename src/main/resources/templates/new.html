@@ -14,7 +14,7 @@
     <br/>
     <label for="country">Your country:</label>
     <select id="country" th:field="*{country}">
-        <option th:each="country : ${T(com.molocziszko.lamproom.Country).values()}"
+        <option th:each="country : ${T(com.molocziszko.lamproom.model.Country).values()}"
                 th:value="${country}"
                 th:text="${country}">
         </option>

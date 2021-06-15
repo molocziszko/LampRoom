@@ -1,5 +1,7 @@
-package com.molocziszko.lamproom;
+package com.molocziszko.lamproom.service;
 
+import com.molocziszko.lamproom.model.Room;
+import com.molocziszko.lamproom.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class RoomService {
         return repository.save(room);
     }
 
-        public void updateLamp(Room userAccount, Long id) {
+    public void updateLamp(Room userAccount, Long id) {
         Room roomToUpdate = getRoomById(id);
         roomToUpdate.setLampOn(userAccount.isLampOn());
 

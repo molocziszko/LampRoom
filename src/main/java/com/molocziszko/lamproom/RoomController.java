@@ -3,15 +3,12 @@ package com.molocziszko.lamproom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping({"/", "/rooms"})
 public class RoomController {
 
     private final RoomService service;
@@ -24,28 +21,44 @@ public class RoomController {
     public String index() {return "";
     }
 
-    @GetMapping("rooms")
+    @GetMapping()
     public String listOfRooms(Model model) {
         List<Room> rooms = service.getAllRooms();
         model.addAttribute("rooms", rooms);
         return "rooms";
     }
 
-    @GetMapping("rooms/new")
+    @GetMapping("/new")
     public String openRoomCreator(Room room) {
         return "new";
     }
 
-    @PostMapping("rooms/new")
+    @PostMapping("/new")
     public String createRoom(Room room) {
         service.save(room);
 
         return "redirect:/rooms";
     }
 
-    @GetMapping("rooms/{id}")
-    public String enterRoom(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/{id}")
+    public String enterRoom(@PathVariable Long id, Model model) {
         model.addAttribute("room", service.getRoomById(id));
+        return "room";
+    }
+
+    @PutMapping("/{id}")
+    public String switchLamp(@PathVariable("id") Long id,
+                             @RequestParam(value = "lampOn", required = false) String lampOn,
+                             @RequestParam(value = "lampOff", required = false) String lampOff,
+                             @ModelAttribute(value = "room") Room room) {
+        if (lampOn == "On") {
+            room.setLampOn(true);
+        }
+        if (lampOff == "Off") {
+            room.setLampOn(false);
+        }
+        service.updateLamp(room, id);
+
         return "room";
     }
 }

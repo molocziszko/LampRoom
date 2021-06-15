@@ -2,18 +2,41 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>View</title>
+    <title>Room</title>
 </head>
 <body>
 
 <h3 th:text="${room}"></h3>
 
+<p><a href="/rooms">Back</a></p>
+
 <hr/>
 <div>The lamp in the room is <span th:text="${room.isLampOn} ? 'TURNING ON' : 'TURNING OFF'"></span></div>
 
-<img id="lampImg" onclick="toSwitch()" src="pic_lampOff.gif" width="100" height="180">
+<div style="margin: 10px">
 
-<p>Click the lamp to turn on/off the light.</p>
+    <span style="margin: 10px"><img id="lampImg"
+                                    src="../static/images/pic_lampOff.jpg"
+                                    th:src="${room.isLampOn} ? @{/images/pic_lampOn.jpg} : @{/images/pic_lampOff.jpg}"
+                                    width="110"
+                                    height="160"></span>
+
+    <form action="#" th:action="@{/rooms/{id}(id=${room.id})}" th:method="put" th:object="${room}">
+        <input type="hidden" th:field="*{name}"/>
+        <input type="hidden" th:field="*{country}"/>
+        <button id = "btnOn" onclick="toSwitch(this.id);" th:name="lampOn" th:value="On">
+            Turn on
+        </button>
+        <button id = "btnOff" onclick="toSwitch(this.id);">
+            Turn off
+        </button>
+    </form>
+
+
+    <p>Click the lamp to turn on/off the light.</p>
+</div>
+
+
 
 <script type="text/javascript" th:src="@{/js/toSwitch.js}"></script>
 

@@ -1,8 +1,12 @@
-function toSwitch() {
-  let image = document.getElementById('lampImg');
-  if (image.src.match("lampOn")) {
-    image.src = "pic_lampOff.gif";
-  } else {
-    image.src = "pic_lampOn.gif";
+function toSwitch(clickedID) {
+
+    var image = document.getElementById('lampImg');
+    if (clickedID == "btnOn") {
+        image.src = "../images/pic_lampOn.jpg";
+        flag = true;
+    } else {
+        image.src = "../images/pic_lampOff.jpg"
+        flag = false;
   }
+
 }

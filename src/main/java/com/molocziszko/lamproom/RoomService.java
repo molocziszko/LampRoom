@@ -26,4 +26,11 @@ public class RoomService {
     public Room save(Room room) {
         return repository.save(room);
     }
+
+        public void updateLamp(Room userAccount, Long id) {
+        Room roomToUpdate = getRoomById(id);
+        roomToUpdate.setLampOn(userAccount.isLampOn());
+
+        save(roomToUpdate);
+    }
 }

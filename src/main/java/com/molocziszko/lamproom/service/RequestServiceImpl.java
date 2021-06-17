@@ -2,7 +2,6 @@ package com.molocziszko.lamproom.service;
 
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
-import com.molocziszko.lamproom.model.Room;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -56,20 +55,20 @@ public class RequestServiceImpl implements RequestService {
         return ipAddress;
     }
 
-    public String checkClientLocation(Room room, String ip) {
+    public String checkClientLocation(String ip) {
         InetAddress ipAddress = null;
         try {
             ipAddress = InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        String countryOfIp = null;
+        String countryByIp = null;
         try {
-            countryOfIp = databaseReader().country(ipAddress).getCountry().getName();
+            countryByIp = databaseReader().country(ipAddress).getCountry().getName();
         } catch (IOException | GeoIp2Exception e) {
             e.printStackTrace();
         }
-        return countryOfIp;
+        return countryByIp;
     }
 
     public boolean isLocalhost(String ip) {

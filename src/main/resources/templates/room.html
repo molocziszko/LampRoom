@@ -24,19 +24,16 @@
     <form action="#" th:action="@{/rooms/{id}(id=${room.id})}" th:method="put" th:object="${room}">
         <input type="hidden" th:field="*{name}"/>
         <input type="hidden" th:field="*{country}"/>
-        <button id = "btnOn" onclick="toSwitch(this.id);" th:name="lampOn" th:value="On">
+        <button id="btnOn" onclick="toSwitch(this.id);" th:name="lampOn" th:value="On">
             Turn on
         </button>
-        <button id = "btnOff" onclick="toSwitch(this.id);">
+        <button id="btnOff" onclick="toSwitch(this.id);">
             Turn off
         </button>
     </form>
 
-
     <p>Click the lamp to turn on/off the light.</p>
 </div>
-
-
 
 <script type="text/javascript" th:src="@{/js/toSwitch.js}"></script>
 

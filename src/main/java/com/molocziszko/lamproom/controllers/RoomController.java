@@ -48,7 +48,7 @@ public class RoomController {
         String clientIP = requestService.getClientIp(request);
         if (!requestService.isLocalhost(clientIP)) {
             Room room = service.getRoomById(id);
-            String clientCountry = requestService.checkClientLocation(room, clientIP);
+            String clientCountry = requestService.checkClientLocation(clientIP);
             if (!clientCountry.equalsIgnoreCase(room.getCountry().toString())) {
                 model.addAttribute("clientCountry", clientCountry);
                 model.addAttribute("roomCountry", room.getCountry());

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/", "/rooms"})
 public class RoomController {
 
     private final RoomService service;
@@ -24,26 +23,26 @@ public class RoomController {
         this.requestService = requestService;
     }
 
-    @GetMapping()
+    @GetMapping({"/", "/rooms"})
     public String listOfRooms(Model model) {
         List<Room> rooms = service.getAllRooms();
         model.addAttribute("rooms", rooms);
-        return "rooms";
+        return "roomsList";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/rooms/new")
     public String openRoomCreator(Room room) {
-        return "new";
+        return "new_room";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/rooms/new")
     public String createRoom(Room room) {
         service.save(room);
 
         return "redirect:/rooms";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/rooms/{id}")
     public String enterRoom(@PathVariable Long id, Model model, HttpServletRequest request) {
         String clientIP = requestService.getClientIp(request);
         if (!requestService.isLocalhost(clientIP)) {
@@ -59,7 +58,7 @@ public class RoomController {
         return "room";
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/rooms/{id}")
     public String switchLamp(@PathVariable("id") Long id,
                              @RequestParam(value = "lampOn", required = false) String lampOn,
                              @RequestParam(value = "lampOff", required = false) String lampOff,
